@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horaires de Prières</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 30%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Horaires de Prières</h1>
+    <p>Aujourd'hui : {{ today }} - {{ hijri_date.day }} {{ hijri_date.month_name() }} {{ hijri_date.year }} AH</p>
+    {% if prayer_times %}
+    <table>
+        <tr>
+            <th>Prière</th>
+            <th>Heure</th>
+        </tr>
+        <tr>
+            <td>Fajr</td>
+            <td>{{ prayer_times["Fajr"] }}</td>
+        </tr>
+        <tr>
+            <td>Dhuhr</td>
+            <td>{{ prayer_times["Dhuhr"] }}</td>
+        </tr>
+        <tr>
+            <td>Asr</td>
+            <td>{{ prayer_times["Asr"] }}</td>
+        </tr>
+        <tr>
+            <td>Maghrib</td>
+            <td>{{ prayer_times["Maghrib"] }}</td>
+        </tr>
+        <tr>
+            <td>Isha</td>
+            <td>{{ prayer_times["Isha"] }}</td>
+        </tr>
+    </table>
+    {% else %}
+    <p>Aucune donnée disponible pour aujourd'hui.</p>
+    {% endif %}
+</body>
+</html>
