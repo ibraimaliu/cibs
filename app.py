@@ -8,13 +8,20 @@ app = Flask(__name__)
 
 def configure_locale():
     try:
+        # Essayer de définir la locale à 'fr_FR.utf8'
         locale.setlocale(locale.LC_TIME, 'fr_FR.utf8')
     except locale.Error:
         try:
+            # Si 'fr_FR.utf8' n'est pas disponible, essayer avec 'fr_FR.UTF-8'
             locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
         except locale.Error:
-            print("La locale française n'est pas disponible. Utilisation de la locale par défaut.")
-            locale.setlocale(locale.LC_TIME, '')
+            try:
+                # Si ni 'fr_FR.utf8' ni 'fr_FR.UTF-8' ne sont disponibles, utiliser la locale par défaut du système
+                locale.setlocale(locale.LC_TIME, '')
+            except locale.Error as e:
+                # En cas d'échec, afficher un message d'erreur et configurer une locale par défaut connue
+                print(f"Failed to set locale: {e}")
+                locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
 
 configure_locale()
 
