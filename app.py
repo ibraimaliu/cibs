@@ -4,10 +4,19 @@ import datetime
 from hijri_converter import convert
 import locale
 
-# Configurer la locale pour les dates en français
-locale.setlocale(locale.LC_TIME, 'fr_FR.utf8')
-
 app = Flask(__name__)
+
+def configure_locale():
+    try:
+        locale.setlocale(locale.LC_TIME, 'fr_FR.utf8')
+    except locale.Error:
+        try:
+            locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
+        except locale.Error:
+            print("La locale française n'est pas disponible. Utilisation de la locale par défaut.")
+            locale.setlocale(locale.LC_TIME, '')
+
+configure_locale()
 
 def get_prayer_times():
     # Lire le fichier Excel
