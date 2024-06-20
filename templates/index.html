@@ -66,4 +66,11 @@
     <p>Aucune donnée disponible pour aujourd'hui.</p>
     {% endif %}
 </body>
+    <script>
+const hijriDate = new Date("1445-10-15"); // Exemple
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+const formattedDate = hijriDate.toLocaleDateString('fr-FR', options);
+document.getElementById("date-container").innerHTML = `Aujourd'hui : ${formattedDate}`;
+</script>
+
 </html>
