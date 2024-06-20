@@ -21,10 +21,14 @@ def get_prayer_times():
     try:
         # Lire le fichier Excel
         df = pd.read_excel('data/prayer_times.xlsx')
-
+        print("Excel file loaded successfully.")
+        
         # Filtrer les horaires pour la date actuelle
         today = datetime.date.today()
+        print(f"Today's date: {today}")
+        
         todays_times = df[df['Date'] == pd.to_datetime(today)]
+        print(f"Filtered data for today: {todays_times}")
 
         if not todays_times.empty:
             prayer_times = todays_times.iloc[0].to_dict()
@@ -33,6 +37,7 @@ def get_prayer_times():
                 if prayer in prayer_times:
                     # Convertir en chaîne de caractères et enlever les secondes
                     prayer_times[prayer] = prayer_times[prayer].strftime('%H:%M')
+            print(f"Prayer times for today: {prayer_times}")
             return prayer_times
         else:
             print("No prayer times found for today.")
