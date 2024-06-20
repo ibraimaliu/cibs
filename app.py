@@ -19,7 +19,7 @@ configure_locale()
 def load_prayer_times():
     try:
         # Lire le fichier Excel
-        df = pd.read_excel('data/prayer_times.xlsx')
+        df = pd.read_excel('data/prayer_times.xls')
         print("Fichier Excel chargé avec succès.")
         return df
     except Exception as e:
