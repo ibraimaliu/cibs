@@ -11,11 +11,5 @@
       "src": "/(.*)",
       "dest": "/app.py"
     }
-  ],
-  "files": [
-    {
-      "src": "data/prayer_times.xlsx",
-      "dest": "data/prayer_times.xlsx"
-    }
   ]
 }
