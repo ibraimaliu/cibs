@@ -23,6 +23,10 @@ def get_prayer_times():
         df = pd.read_excel('data/prayer_times.xlsx')
         print("Excel file loaded successfully.")
         
+        # Convertir la colonne 'Date' en type datetime
+        df['Date'] = pd.to_datetime(df['Date'])
+        print(f"DataFrame after converting 'Date':\n{df}")
+        
         # Filtrer les horaires pour la date actuelle
         today = datetime.date.today()
         print(f"Today's date: {today}")
@@ -34,7 +38,7 @@ def get_prayer_times():
             prayer_times = todays_times.iloc[0].to_dict()
             # Formater les horaires sans les secondes
             for prayer in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha', 'Levé du soleil']:
-                if prayer in prayer_times:
+                if prayer in prayer_times and isinstance(prayer_times[prayer], pd.Timestamp):
                     # Convertir en chaîne de caractères et enlever les secondes
                     prayer_times[prayer] = prayer_times[prayer].strftime('%H:%M')
             print(f"Prayer times for today: {prayer_times}")
