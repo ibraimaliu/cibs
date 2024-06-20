@@ -20,7 +20,7 @@ configure_locale()
 def get_prayer_times():
     try:
         # Lire le fichier Excel
-        df = pd.read_excel('data/prayer_times.csv')
+        df = pd.read_excel('data/prayer_times.xlsx')
         print("Excel file loaded successfully.")
         
         # Convertir la colonne 'Date' en type datetime
