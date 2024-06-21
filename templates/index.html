@@ -9,17 +9,13 @@
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
-        }
-        body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             text-align: center;
             background-image: url('templates/background.jpg'); /* Chemin vers votre image */
             background-size: cover; /* Pour que l'image couvre toute la page */
             background-position: center; /* Pour centrer l'image */
-            background-color:darkblue;
             background-repeat: no-repeat; /* Pour éviter que l'image se répète */
             padding: 20px; /* Ajouter du padding pour éviter que le contenu touche les bords */
             box-sizing: border-box; /* Inclure le padding dans la taille totale du body */
@@ -33,9 +29,10 @@
             margin-bottom: 20px; /* Ajouter une marge en bas pour espacer le contenu */
         }
         table {
-            margin: 20px 0;
+            margin: 20px auto;
             border-collapse: collapse;
             width: 80%; /* Ajustez la largeur du tableau selon vos besoins */
+            max-width: 800px; /* Limiter la largeur maximale du tableau */
             background-color: rgba(255, 255, 255, 0.8); /* Ajouter un fond semi-transparent pour le tableau */
         }
         th, td {
@@ -50,8 +47,7 @@
 <body>
     <h1>Horaires de Prières</h1>
     <div id="current-time"></div>
-    <p>Aujourd'hui : {{ today }}</p>
-    <p></p>{{ hijri_date.day }} {{ hijri_date.month_name() }} {{ hijri_date.year }} AH</p>
+    <p>Aujourd'hui : {{ today }} - {{ hijri_date.day }} {{ hijri_date.month_name() }} {{ hijri_date.year }} AH</p>
     {% if prayer_times %}
     <table>
         <tr>
@@ -90,7 +86,8 @@
     {% else %}
     <p>Aucune donnée disponible pour aujourd'hui.</p>
     {% endif %}
-     <script>
+    
+    <script>
         function updateTime() {
             var now = new Date();
             var hours = now.getHours().toString().padStart(2, '0');
