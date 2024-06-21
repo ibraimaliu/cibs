@@ -7,12 +7,12 @@
     <style>
        <style>
        
-        html, body {
+        body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0 auto;
             margin-top: 50px;
-            background-image: url('data/background.jpg'); /* Chemin vers votre image */
+            background-image: url('templates/background.jpg'); /* Chemin vers votre image */
             background-size: cover; /* Pour que l'image couvre toute la page */
             background-position: center; /* Pour centrer l'image */
             background-repeat: no-repeat; /* Pour éviter que l'image se répète */
@@ -32,11 +32,7 @@
             background-color: rgba(242, 242, 242, 0.8); /* Fond semi-transparent pour les en-têtes */
         }
     </style>
-      <script>
-        const hijriDate = new Date("1445-10-15");
-        const formattedDate = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(hijriDate);
-        document.getElementById("date-container").innerHTML = `Aujourd'hui : ${formattedDate}`;
-    </script>
+   
 </head>
 <body>
     <h1>Horaires de Prières</h1>
