@@ -3,16 +3,17 @@
   "builds": [
     {
       "src": "app.py",
-      "use": "@vercel/python"
-       "regions": ["cdg1"]
+      "use": "@vercel/python",
+      "config": {
+        "regions": ["iad1"]  // Spécifiez ici la ou les régions souhaitées
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/app.py"
-      "regions": ["cdg1"]
+      "dest": "/app.py",
+      "regions": ["iad1"]  // Spécifiez ici la ou les régions souhaitées
     }
-
   ]
 }
