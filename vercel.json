@@ -5,7 +5,7 @@
       "src": "app.py",
       "use": "@vercel/python",
       "config": {
-        "regions": ["iad1"]  // Spécifiez ici la ou les régions souhaitées
+        "regions": ["cdg1"]  // Spécifiez ici la ou les régions souhaitées
       }
     }
   ],
@@ -13,7 +13,7 @@
     {
       "src": "/(.*)",
       "dest": "/app.py",
-      "regions": ["iad1"]  // Spécifiez ici la ou les régions souhaitées
+      "regions": ["cdg1"]  // Spécifiez ici la ou les régions souhaitées
     }
   ]
 }
