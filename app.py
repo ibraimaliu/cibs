@@ -7,14 +7,14 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# def configure_locale():
-#     try:
-#         # Définir la locale à partir de la variable d'environnement LC_TIME, avec une valeur par défaut 'fr_FR.utf8'
-#         locale.setlocale(locale.LC_TIME, os.getenv('LC_TIME', 'fr_FR.utf8'))
-#     except locale.Error as e:
-#         print(f"Échec de la configuration de la locale : {e}")
+def configure_locale():
+    try:
+        # Définir la locale à partir de la variable d'environnement LC_TIME, avec une valeur par défaut 'fr_FR.utf8'
+        locale.setlocale(locale.LC_TIME, os.getenv('LC_TIME', 'fr_FR.utf8'))
+    except locale.Error as e:
+        print(f"Échec de la configuration de la locale : {e}")
 
-# configure_locale()
+configure_locale()
 
 def load_prayer_times():
     try:
