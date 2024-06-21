@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horaires de Prières</title>
     <style>
-      body {
+        body {
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
@@ -13,13 +13,10 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-image: url('background.jpg'); 
-            background-size: cover; /* Pour que l'image couvre toute la page */
-            background-position: center; /* Pour centrer l'image */
-            background-repeat: no-repeat; /* Pour éviter que l'image se répète */
             padding: 20px; /* Ajouter du padding pour éviter que le contenu touche les bords */
             box-sizing: border-box; /* Inclure le padding dans la taille totale du body */
-            
+            background-color:rgb(8, 8, 135);
+            color:antiquewhite;
         }
         .container {
             max-width: 1200px;
@@ -30,28 +27,24 @@
         }
         .header {
             text-align: center;
-            margin-bottom: 20px;
         }
-        .logo {
-            max-width: 200px; /* Ajuster la taille du logo selon vos besoins */
-            margin-right: 20px; /* Marge à droite pour séparer du tableau */
-            align-self: flex-start; /* Aligner le logo à gauche */
+
+        table {
+            font-size: 1em; 
+            margin: 20px 0;
+            border-collapse: collapse;
+            width: 100%; /* Ajustez la largeur du tableau selon vos besoins */
+            max-width: 800px; /* Limiter la largeur maximale du tableau */
+            background-color: rgba(255, 255, 255, 0.8); /* Ajouter un fond semi-transparent pour le tableau */
+            color: black; /* Couleur du texte dans le tableau */
         }
         #current-time {
             font-size: 3em; /* Ajustez la taille de la police pour l'heure actuelle */
             
         }
-         #date-info {
-            font-size: 2em; /* Ajustez la taille de la police pour l'heure actuelle */
+          #date-info{
+            font-size: 3em; /* Ajustez la taille de la police pour la date actuelle */
             
-        }
-        table {
-            margin: 20px 0;
-            border-collapse: collapse;
-            width: 80%; /* Ajustez la largeur du tableau selon vos besoins */
-            max-width: 800px; /* Limiter la largeur maximale du tableau */
-            background-color: rgba(255, 255, 255, 0.8); /* Ajouter un fond semi-transparent pour le tableau */
-            color: black; /* Couleur du texte dans le tableau */
         }
         th, td {
             border: 1px solid #ddd;
@@ -60,54 +53,48 @@
         th {
             background-color: rgba(242, 242, 242, 0.8); /* Fond semi-transparent pour les en-têtes */
         }
-        .highlight {
-            background-color: #ffd700; /* Couleur de surbrillance */
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Horaires de Prières</h1>
-             <div class="logo">
-                <img src="templates/logo cibs.jpg" />
-            </div>
         </div>
         <div id="current-time">
             20:27:34 <!-- C'est l'heure actuelle, vous pouvez la remplacer par JavaScript -->
         </div>
         <div id="date-info"></div>
         {% if prayer_times %}
-        <table id="prayer-table">
+        <table>
             <tr>
                 <th>Prière</th>
                 <th>Heure</th>
             </tr>
-            <tr class="fajr">
+            <tr>
                 <td>Fajr</td>
                 <td>{{ prayer_times["Fajr"] }}</td>
             </tr>
-            <tr class="mosque">
+            <tr>
                 <td>Prière à la mosquée</td>
                 <td>{{ prayer_times["Prière à la mosquée"] }}</td>
             </tr>
-            <tr class="sunrise">
+            <tr>
                 <td>Levé du soleil</td>
                 <td>{{ prayer_times["Levé du soleil"] }}</td>
             </tr>
-            <tr class="dhuhr">
+            <tr>
                 <td>Dhuhr</td>
                 <td>{{ prayer_times["Dhuhr"] }}</td>
             </tr>
-            <tr class="asr">
+            <tr>
                 <td>Asr</td>
                 <td>{{ prayer_times["Asr"] }}</td>
             </tr>
-            <tr class="maghrib">
+            <tr>
                 <td>Maghrib</td>
                 <td>{{ prayer_times["Maghrib"] }}</td>
             </tr>
-            <tr class="isha">
+            <tr>
                 <td>Isha</td>
                 <td>{{ prayer_times["Isha"] }}</td>
             </tr>
@@ -121,73 +108,38 @@
         // JavaScript pour mettre à jour l'heure actuelle
         function updateTime() {
             var now = new Date();
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var currentTime = hours * 60 + minutes; // Convertir l'heure en minutes pour une comparaison facile
-
-            // Horaires des prières (vous pouvez remplacer par vos horaires réels)
-            var fajrTime = convertTimeStringToMinutes('{{ prayer_times["Fajr"] }}');
-            var mosqueTime = convertTimeStringToMinutes('{{ prayer_times["Prière à la mosquée"] }}');
-            var sunriseTime = convertTimeStringToMinutes('{{ prayer_times["Levé du soleil"] }}');
-            var dhuhrTime = convertTimeStringToMinutes('{{ prayer_times["Dhuhr"] }}');
-            var asrTime = convertTimeStringToMinutes('{{ prayer_times["Asr"] }}');
-            var maghribTime = convertTimeStringToMinutes('{{ prayer_times["Maghrib"] }}');
-            var ishaTime = convertTimeStringToMinutes('{{ prayer_times["Isha"] }}');
-
-            // Tableau des heures de prière
-            var prayerTimes = [
-                { name: 'Fajr', time: fajrTime },
-                { name: 'Prière à la mosquée', time: mosqueTime },
-                { name: 'Levé du soleil', time: sunriseTime },
-                { name: 'Dhuhr', time: dhuhrTime },
-                { name: 'Asr', time: asrTime },
-                { name: 'Maghrib', time: maghribTime },
-                { name: 'Isha', time: ishaTime }
-            ];
-
-            // Parcourir les horaires des prières pour déterminer celle en cours
-            for (var i = 0; i < prayerTimes.length; i++) {
-                var prayer = prayerTimes[i];
-                var nextPrayer = prayerTimes[i + 1]; // Récupérer la prochaine prière pour déterminer l'intervalle
-
-                // Si c'est la dernière prière ou l'heure actuelle est entre cette prière et la suivante
-                if (!nextPrayer || (currentTime >= prayer.time && currentTime < nextPrayer.time)) {
-                    highlightPrayer(prayer.name);
-                    break;
-                }
-            }
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var seconds = now.getSeconds().toString().padStart(2, '0');
+            var timeString = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('current-time').textContent = timeString;
+        }
+         // Fonction pour obtenir la date du jour au format 'vendredi 21 juin 2024'
+        function getFormattedDate() {
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var today = new Date();
+            return today.toLocaleDateString('fr-FR', options);
         }
 
-        // Fonction pour convertir une chaîne de temps en minutes depuis minuit
-        function convertTimeStringToMinutes(timeString) {
-            var parts = timeString.split(':');
-            var hours = parseInt(parts[0]);
-            var minutes = parseInt(parts[1]);
-            return hours * 60 + minutes;
+        // Fonction pour convertir la date grégorienne en date hégirienne (hijri)
+        function convertToHijri(date) {
+            // Vous devrez remplacer cette fonction par celle adaptée à votre méthode de conversion hijri
+            return '15 Dhu al-Hijjah 1445 AH'; // Exemple statique, à remplacer
         }
 
-        // Fonction pour mettre en surbrillance la ligne de la prière en cours
-        function highlightPrayer(prayerName) {
-            var table = document.getElementById('prayer-table');
-            var rows = table.getElementsByTagName('tr');
-
-            // Supprimer la surbrillance des lignes précédemment mises en surbrillance
-            for (var i = 0; i < rows.length; i++) {
-                rows[i].classList.remove('highlight');
-            }
-
-            // Ajouter la classe de surbrillance à la ligne correspondant à la prière en cours
-            var prayerRow = table.getElementsByClassName(prayerName.toLowerCase())[0];
-            if (prayerRow) {
-                prayerRow.classList.add('highlight');
-            }
+        // Fonction principale pour mettre à jour les informations de date
+        function updateDateInfo() {
+            var formattedGregorianDate = getFormattedDate();
+            var hijriDate = convertToHijri(new Date()); // Remplacez new Date() par la date actuelle appropriée si nécessaire
+            var dateInfoElement = document.getElementById('date-info');
+            dateInfoElement.innerHTML = formattedGregorianDate + ' - ' + hijriDate;
         }
 
         // Appeler la fonction updateTime toutes les secondes
         setInterval(updateTime, 1000);
 
-        // Appel initial pour afficher l'heure actuelle et mettre en surbrillance la prière en cours
-        updateTime();
+        // Appeler la fonction updateDateInfo pour mettre à jour les informations de date au chargement de la page
+        updateDateInfo();
     </script>
 </body>
 </html>
