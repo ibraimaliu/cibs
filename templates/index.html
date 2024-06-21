@@ -19,22 +19,26 @@
             background-repeat: no-repeat; /* Pour éviter que l'image se répète */
             padding: 20px; /* Ajouter du padding pour éviter que le contenu touche les bords */
             box-sizing: border-box; /* Inclure le padding dans la taille totale du body */
-        
+            color: white; /* Couleur du texte */
         }
-        h1 {
-            margin-top: 0;
-            font-size: 2.5em; /* Ajuster la taille de la police du titre */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        #current-time {
-            font-size: 1.5em; /* Ajustez la taille de la police pour l'heure actuelle */
-            margin-bottom: 20px; /* Ajouter une marge en bas pour espacer le contenu */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        #date-info {
-            font-size: 1.2em; /* Ajustez la taille de la police pour les informations de date */
-            margin-bottom: 10px; /* Ajouter une marge en bas pour espacer les lignes */
+        .logo {
+            max-width: 200px; /* Ajuster la taille du logo selon vos besoins */
+            margin-right: 20px; /* Marge à droite pour séparer du tableau */
+            align-self: flex-start; /* Aligner le logo à gauche */
         }
         table {
-            margin: 20px auto;
+            margin: 20px 0;
             border-collapse: collapse;
             width: 80%; /* Ajustez la largeur du tableau selon vos besoins */
             max-width: 800px; /* Limiter la largeur maximale du tableau */
@@ -51,56 +55,61 @@
     </style>
 </head>
 <body>
-    <img src="templates/cibs.jpg" alt="logo du cibs">
-    <div>
-        <h1>Horaires de Prières</h1>
+    <div class="container">
+        <div class="header">
+            <h1>Horaires de Prières</h1>
+            <div class="logo">
+                <img src="templates/logo cibs.jpg" alt="Logo de CIBS" />
+            </div>
+        </div>
+        <div id="current-time">
+            20:27:34 <!-- C'est l'heure actuelle, vous pouvez la remplacer par JavaScript -->
+        </div>
+        <div id="date-info">
+            Aujourd'hui : Friday, 21 June 2024 - 15 Dhu al-Hijjah 1445 AH <!-- C'est la date, vous pouvez la remplacer par des variables dynamiques -->
+        </div>
+        {% if prayer_times %}
+        <table>
+            <tr>
+                <th>Prière</th>
+                <th>Heure</th>
+            </tr>
+            <tr>
+                <td>Fajr</td>
+                <td>{{ prayer_times["Fajr"] }}</td>
+            </tr>
+            <tr>
+                <td>Prière à la mosquée</td>
+                <td>{{ prayer_times["Prière à la mosquée"] }}</td>
+            </tr>
+            <tr>
+                <td>Levé du soleil</td>
+                <td>{{ prayer_times["Levé du soleil"] }}</td>
+            </tr>
+            <tr>
+                <td>Dhuhr</td>
+                <td>{{ prayer_times["Dhuhr"] }}</td>
+            </tr>
+            <tr>
+                <td>Asr</td>
+                <td>{{ prayer_times["Asr"] }}</td>
+            </tr>
+            <tr>
+                <td>Maghrib</td>
+                <td>{{ prayer_times["Maghrib"] }}</td>
+            </tr>
+            <tr>
+                <td>Isha</td>
+                <td>{{ prayer_times["Isha"] }}</td>
+            </tr>
+        </table>
+        {% else %}
+        <p>Aucune donnée disponible pour aujourd'hui.</p>
+        {% endif %}
     </div>
-    <div id="current-time">
-        20:27:34
-    </div>
-    <div id="date-info">
-        Aujourd'hui : Friday, 21 June 2024 - 15 Dhu al-Hijjah 1445 AH
-    </div>
-    {% if prayer_times %}
-    <table>
-        <tr>
-            <th>Prière</th>
-            <th>Heure</th>
-        </tr>
-        <tr>
-            <td>Fajr</td>
-            <td>{{ prayer_times["Fajr"] }}</td>
-        </tr>
-        <tr>
-            <td>Prière à la mosquée</td>
-            <td>{{ prayer_times["Prière à la mosquée"] }}</td>
-        </tr>
-        <tr>
-            <td>Levé du soleil</td>
-            <td>{{ prayer_times["Levé du soleil"] }}</td>
-        </tr>
-        <tr>
-            <td>Dhuhr</td>
-            <td>{{ prayer_times["Dhuhr"] }}</td>
-        </tr>
-        <tr>
-            <td>Asr</td>
-            <td>{{ prayer_times["Asr"] }}</td>
-        </tr>
-        <tr>
-            <td>Maghrib</td>
-            <td>{{ prayer_times["Maghrib"] }}</td>
-        </tr>
-        <tr>
-            <td>Isha</td>
-            <td>{{ prayer_times["Isha"] }}</td>
-        </tr>
-    </table>
-    {% else %}
-    <p>Aucune donnée disponible pour aujourd'hui.</p>
-    {% endif %}
-    
+
     <script>
+        // JavaScript pour mettre à jour l'heure actuelle
         function updateTime() {
             var now = new Date();
             var hours = now.getHours().toString().padStart(2, '0');
