@@ -4,12 +4,14 @@
     {
       "src": "app.py",
       "use": "@vercel/python"
+       "regions": ["cdg1"]
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
       "dest": "/app.py"
+      "regions": ["cdg1"]
     }
 
   ]
