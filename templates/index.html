@@ -43,7 +43,7 @@
             
         }
           #date-info{
-            font-size: 3em; /* Ajustez la taille de la police pour la date actuelle */
+            font-size: 1.2em; /* Ajustez la taille de la police pour la date actuelle */
             
         }
         th, td {
@@ -63,9 +63,11 @@
         <div id="current-time">
             20:27:34 <!-- C'est l'heure actuelle, vous pouvez la remplacer par JavaScript -->
         </div>
-        <div id="date-info"></div>
+        <div id="date-info">
+            Aujourd'hui : <span id="gregorian-date"></span> - <span id="hijri-date"></span>
+        </div>
         {% if prayer_times %}
-         <table id="prayer-table">
+        <table id="prayer-table">
             <tr>
                 <th>Prière</th>
                 <th>Heure</th>
@@ -104,8 +106,36 @@
         {% endif %}
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/hijri-date@2.1.1/dist/hijri-date.min.js"></script>
     <script>
-        // JavaScript pour mettre à jour l'heure actuelle
+        // Fonction pour obtenir la date du jour au format 'vendredi 21 juin 2024'
+        function getFormattedDate() {
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var today = new Date();
+            return today.toLocaleDateString('fr-FR', options);
+        }
+
+        // Fonction pour convertir la date grégorienne en date hégirienne (hijri)
+        function convertToHijri(date) {
+            // Vous devrez remplacer cette fonction par celle adaptée à votre méthode de conversion hijri
+            return '15 Dhu al-Hijjah 1445 AH'; // Exemple statique, à remplacer
+        }
+
+        // Fonction principale pour mettre à jour les informations de date
+        function updateDateInfo() {
+            var formattedGregorianDate = getFormattedDate();
+            var hijriDate = convertToHijri(new Date()); // Remplacez new Date() par la date actuelle appropriée si nécessaire
+            var dateInfoElement = document.getElementById('date-info');
+            dateInfoElement.innerHTML = formattedGregorianDate + ' - ' + hijriDate;
+        }
+
+        // Appeler la fonction updateTime toutes les secondes
+        setInterval(updateTime, 1000);
+
+        // Appeler la fonction updateDateInfo pour mettre à jour les informations de date au chargement de la page
+        updateDateInfo();
+
+        // Fonction pour mettre à jour l'heure actuelle
         function updateTime() {
             var now = new Date();
             var hours = now.getHours();
@@ -143,37 +173,36 @@
                     break;
                 }
             }
+
+            // Mettre à jour l'heure actuelle
+            var timeString = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
+            document.getElementById('current-time').textContent = timeString;
         }
 
         // Fonction pour convertir une chaîne de temps en minutes depuis minuit
         function convertTimeStringToMinutes(timeString) {
-            var parts = timeString.split(':');
-            var hours = parseInt(parts[0]);
-            var minutes = parseInt(parts[1]);
+            var timeParts = timeString.split(':');
+            var hours = parseInt(timeParts[0], 10);
+            var minutes = parseInt(timeParts[1], 10);
             return hours * 60 + minutes;
         }
 
         // Fonction pour mettre en surbrillance la ligne de la prière en cours
         function highlightPrayer(prayerName) {
-            var table = document.getElementById('prayer-table');
-            var rows = table.getElementsByTagName('tr');
+            var tableRows = document.getElementById('prayer-table').rows;
 
-            // Supprimer la surbrillance des lignes précédemment mises en surbrillance
-            for (var i = 0; i < rows.length; i++) {
-                rows[i].classList.remove('highlight');
-            }
-
-            // Ajouter la classe de surbrillance à la ligne correspondant à la prière en cours
-            var prayerRow = table.getElementsByClassName(prayerName.toLowerCase())[0];
-            if (prayerRow) {
-                prayerRow.classList.add('highlight');
+            // Parcourir les lignes du tableau des prières
+            for (var i = 1; i < tableRows.length; i++) {
+                var row = tableRows[i];
+                if (row.cells[0].textContent.trim() === prayerName) {
+                    row.classList.add('highlight'); // Ajouter la classe de surbrillance à la ligne de la prière en cours
+                } else {
+                    row.classList.remove('highlight'); // Retirer la classe de surbrillance des autres lignes
+                }
             }
         }
 
-        // Appeler la fonction updateTime toutes les secondes
-        setInterval(updateTime, 1000);
-
-        // Appel initial pour afficher l'heure actuelle et mettre en surbrillance la prière en cours
+        // Appel initial pour afficher l'heure immédiatement
         updateTime();
     </script>
 </body>
