@@ -132,7 +132,7 @@
             var formattedGregorianDate = getFormattedDate();
             var hijriDate = convertToHijri(new Date()); // Remplacez new Date() par la date actuelle appropriée si nécessaire
             var dateInfoElement = document.getElementById('date-info');
-            dateInfoElement.innerHTML = 'Aujourd\'hui : ' + formattedGregorianDate + ' - ' + hijriDate;
+            dateInfoElement.innerHTML = formattedGregorianDate + ' - ' + hijriDate;
         }
 
         // Appeler la fonction updateTime toutes les secondes
