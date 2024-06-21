@@ -27,6 +27,10 @@
             margin-top: 0;
             font-size: 2.5em; /* Ajuster la taille de la police du titre */
         }
+        #current-time {
+            font-size: 1.5em; /* Ajustez la taille de la police pour l'heure actuelle */
+            margin-bottom: 20px; /* Ajouter une marge en bas pour espacer le contenu */
+        }
         table {
             margin: 20px 0;
             border-collapse: collapse;
@@ -44,7 +48,9 @@
 </head>
 <body>
     <h1>Horaires de Prières</h1>
-    <p>Aujourd'hui : {{ today }} - {{ hijri_date.day }} {{ hijri_date.month_name() }} {{ hijri_date.year }} AH</p>
+    <div id="current-time"></div>
+    <p>Aujourd'hui : {{ today }}</p>
+    <p></p>{{ hijri_date.day }} {{ hijri_date.month_name() }} {{ hijri_date.year }} AH</p>
     {% if prayer_times %}
     <table>
         <tr>
@@ -83,5 +89,17 @@
     {% else %}
     <p>Aucune donnée disponible pour aujourd'hui.</p>
     {% endif %}
+     <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var seconds = now.getSeconds().toString().padStart(2, '0');
+            var timeString = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('current-time').textContent = timeString;
+        }
+        setInterval(updateTime, 1000); // Mettre à jour l'heure chaque seconde
+        updateTime(); // Appel initial pour afficher l'heure immédiatement
+    </script>
 </body>
 </html>
