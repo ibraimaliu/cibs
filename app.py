@@ -5,7 +5,7 @@ import locale
 import os
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public', static_url_path='/public')
 
 def configure_locale():
     try:
