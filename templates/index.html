@@ -13,11 +13,13 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-image:url('/images/background.jpg')
-            padding: 20px; /* Ajouter du padding pour éviter que le contenu touche les bords */
+            background-image: url('public/images/background.jpg');
+            background-size:cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 10px; /* Ajouter du padding pour éviter que le contenu touche les bords */
             box-sizing: border-box; /* Inclure le padding dans la taille totale du body */
-            background-color:rgb(8, 8, 135);
-            color:antiquewhite;
+            color: antiquewhite;
         }
         .container {
             max-width: 1200px;
@@ -27,25 +29,35 @@
             align-items: center;
         }
         .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .header img {
+            height: 150px; /* Ajuster la hauteur de l'image selon vos besoins */
+        }
+        #title {
+            font-size: 1.8em;
+            text-align: center;
+            margin-top:5px;
+        }
+        #current-time {
+            font-size: 2.5em;
+        }
+        #date-info {
+            font-size: 2.5em;
             text-align: center;
         }
-
         table {
-            font-size: 2.2em; 
+            font-size: 1.8em; 
             margin: 10px 0;
             border-collapse: collapse;
             width: 100%; /* Ajustez la largeur du tableau selon vos besoins */
             max-width: 800px; /* Limiter la largeur maximale du tableau */
             background-color: rgba(255, 255, 255, 0.8); /* Ajouter un fond semi-transparent pour le tableau */
             color: black; /* Couleur du texte dans le tableau */
-        }
-        #current-time {
-            font-size: 3em; /* Ajustez la taille de la police pour l'heure actuelle */
-            
-        }
-          #date-info{
-            font-size: 1.5em; /* Ajustez la taille de la police pour la date actuelle */
-            
         }
         th, td {
             border: 1px solid #ddd;
@@ -58,13 +70,10 @@
 </head>
 <body>
     <div class="container">
-        <img src="public/images/logo_cibs.jpg">
         <div class="header">
-            
-            <h1>Horaires de Prières</h1>
-        </div>
-        <div id="current-time">
-            20:27:34 <!-- C'est l'heure actuelle, vous pouvez la remplacer par JavaScript -->
+            <img src='public/images/logo_cibs.jpg'>
+            <div id="title">CENTRE ISLAMIQUE DES BALKANAIS DE SION</div>
+            <div id="current-time">20:27:34</div> <!-- C'est l'heure actuelle, vous pouvez la remplacer par JavaScript -->
         </div>
         <div id="date-info">
             Aujourd'hui : <span id="gregorian-date"></span> - <span id="hijri-date"></span>
